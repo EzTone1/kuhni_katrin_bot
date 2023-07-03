@@ -7,7 +7,6 @@ from middlewares.timer_message_middleware import SchedulerMiddleware
 from aiogram.fsm.storage.redis import RedisStorage
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from apscheduler_di import ContextSchedulerDecorator
-from contextvars import ContextVar
 from apscheduler.jobstores.redis import RedisJobStore
 
 async def main():

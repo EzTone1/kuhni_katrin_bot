@@ -57,3 +57,6 @@ firing_button_consult = "Предварительная консультация
 
 
 giving_number_on_firing = "Введите свой номер телефона или номер whatsapp для того, *чтобы дизайнер мог с Вами связаться*"
+
+
+finish_kitchen_in_group = "Новая заявка из бота Кухни Катрин! \n Стиль кухни: *{style_of_kitchen}* \nДлина Вашей кухни: *{length_of_kitchen}* \nФорма Вашей кухни: *{form_of_kitchen}* \nВаша столешница: *{tabletop_material}* \nВаш бюджет: *{budget_kitchen}*\nВаш город: *{city_of_kitchen}*\nВаш номер телефона: *{number_of_phone_kitchen}*"

@@ -24,7 +24,8 @@ job1_context = ContextVar('job1_context')
 
 
 @router.message(Command("start"))
-async def greetings_and_style_of_kitchen(msg: Message, state: FSMContext):
+async def greetings_and_style_of_kitchen(msg: Message, state: FSMContext, apscheduler: AsyncIOScheduler):
+    await utils.remove_messages_from_redis(msg, apscheduler)
     await state.set_state(StepOfBot.style_of_kitchen_state)
     await msg.answer_photo(files.style_chosen)
     await msg.answer(text.greetings_and_style_of_kitchen.format(greetings=greeting(), name=msg.from_user.full_name), reply_markup=kb.style_of_kitchen_keyboard, parse_mode="Markdown")
@@ -84,22 +85,22 @@ async def phone_number_giving(msg: Message, state: FSMContext, apscheduler: Asyn
     await state.update_data(city_of_kitchen=msg.text)
     await msg.answer(text.number_of_phone_kitchen.format(city_name=msg.text), parse_mode="Markdown", reply_markup=kb.phone_keyboard)
     apscheduler.add_job(sheduled_message.send_1_fire_message, trigger='date',
-                        run_date=datetime.datetime.now() + datetime.timedelta(seconds=10),
+                        run_date=datetime.datetime.now() + datetime.timedelta(minutes=5),
                         kwargs={'chat_id': msg.from_user.id}, id=str(msg.from_user.id) + '1')
     apscheduler.add_job(sheduled_message.send_2_fire_message, trigger='date',
-                        run_date=datetime.datetime.now() + datetime.timedelta(seconds=15),
+                        run_date=datetime.datetime.now() + datetime.timedelta(days=1),
                         kwargs={'chat_id': msg.from_user.id}, id=str(msg.from_user.id) + '2')
     apscheduler.add_job(sheduled_message.send_3_fire_message, trigger='date',
-                        run_date=datetime.datetime.now() + datetime.timedelta(seconds=20),
+                        run_date=datetime.datetime.now() + datetime.timedelta(days=3),
                         kwargs={'chat_id': msg.from_user.id}, id=str(msg.from_user.id) + '3')
     apscheduler.add_job(sheduled_message.send_4_fire_message, trigger='date',
-                        run_date=datetime.datetime.now() + datetime.timedelta(seconds=25),
+                        run_date=datetime.datetime.now() + datetime.timedelta(days=7),
                         kwargs={'chat_id': msg.from_user.id}, id=str(msg.from_user.id) + '4')
     apscheduler.add_job(sheduled_message.send_5_fire_message, trigger='date',
-                        run_date=datetime.datetime.now() + datetime.timedelta(seconds=30),
+                        run_date=datetime.datetime.now() + datetime.timedelta(days=14),
                         kwargs={'chat_id': msg.from_user.id}, id=str(msg.from_user.id) + '5')
     apscheduler.add_job(sheduled_message.send_6_fire_message, trigger='date',
-                        run_date=datetime.datetime.now() + datetime.timedelta(seconds=35),
+                        run_date=datetime.datetime.now() + datetime.timedelta(days=21),
                         kwargs={'chat_id': msg.from_user.id}, id=str(msg.from_user.id) + '6')
 
 @router.message(StepOfBot.number_not_given, F.text==text.firing_button_phone)
@@ -133,8 +134,8 @@ async def number_of_phone_text(msg: Message, state: FSMContext, apscheduler: Asy
         await asyncio.sleep(5)
         await msg.answer(allow_sending_without_reply=True, text=text.thanksgiving_kitchen, parse_mode="Markdown",
                          reply_markup=kb.tg_channel_keyboard)
+        await config.bot.send_message(config.group_id, text=text.finish_kitchen_in_group.format(**answers_of_client))
         await state.clear()
-        await state.update_data(not_send_message=True)
     elif utils.validate_phone_number(msg.text):
         await utils.remove_messages_from_redis(msg, apscheduler)
         await state.set_state(StepOfBot.number_given)
@@ -154,8 +155,8 @@ async def number_of_phone_text(msg: Message, state: FSMContext, apscheduler: Asy
         await asyncio.sleep(5)
         await msg.answer(allow_sending_without_reply=True, text=text.thanksgiving_kitchen, parse_mode="Markdown",
                          reply_markup=kb.tg_channel_keyboard)
+        await config.bot.send_message(config.group_id, text=text.finish_kitchen_in_group.format(**answers_of_client))
         await state.clear()
-        await state.update_data(not_send_message=True)
 
     else:
         await msg.answer(text=text.wrong_number)
