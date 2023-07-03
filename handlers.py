@@ -103,6 +103,7 @@ async def phone_number_giving(msg: Message, state: FSMContext, apscheduler: Asyn
                         run_date=datetime.datetime.now() + datetime.timedelta(days=21),
                         kwargs={'chat_id': msg.from_user.id}, id=str(msg.from_user.id) + '6')
 
+
 @router.message(StepOfBot.number_not_given, F.text==text.firing_button_phone)
 @router.message(StepOfBot.number_not_given, F.text==text.firing_button_whatsapp)
 @router.message(StepOfBot.number_not_given, F.text==text.firing_button_on_phone)
@@ -116,7 +117,7 @@ async def city_of_kitchen(msg: Message, state: FSMContext):
 
 @router.message(StepOfBot.number_not_given)
 async def number_of_phone_text(msg: Message, state: FSMContext, apscheduler: AsyncIOScheduler):
-    if msg.contact.phone_number:
+    if msg.contact:
         await utils.remove_messages_from_redis(msg, apscheduler)
         await state.set_state(StepOfBot.number_given)
         await state.update_data(number_of_phone_kitchen=msg.contact.phone_number)
@@ -134,7 +135,7 @@ async def number_of_phone_text(msg: Message, state: FSMContext, apscheduler: Asy
         await asyncio.sleep(5)
         await msg.answer(allow_sending_without_reply=True, text=text.thanksgiving_kitchen, parse_mode="Markdown",
                          reply_markup=kb.tg_channel_keyboard)
-        await config.bot.send_message(config.group_id, text=text.finish_kitchen_in_group.format(**answers_of_client))
+        await config.bot.send_message(config.group_id, text=text.finish_kitchen_in_group.format(**answers_of_client), parse_mode="Markdown")
         await state.clear()
     elif utils.validate_phone_number(msg.text):
         await utils.remove_messages_from_redis(msg, apscheduler)
@@ -155,7 +156,7 @@ async def number_of_phone_text(msg: Message, state: FSMContext, apscheduler: Asy
         await asyncio.sleep(5)
         await msg.answer(allow_sending_without_reply=True, text=text.thanksgiving_kitchen, parse_mode="Markdown",
                          reply_markup=kb.tg_channel_keyboard)
-        await config.bot.send_message(config.group_id, text=text.finish_kitchen_in_group.format(**answers_of_client))
+        await config.bot.send_message(config.group_id, text=text.finish_kitchen_in_group.format(**answers_of_client), parse_mode="Markdown")
         await state.clear()
 
     else:
