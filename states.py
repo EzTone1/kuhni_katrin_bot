@@ -9,4 +9,4 @@ class StepOfBot(StatesGroup):
     price_of_kitchen_state = State()
     city_of_kitchen_state = State()
     number_not_given = State()
-    number_given = State
+    number_given = State()

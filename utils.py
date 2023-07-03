@@ -1,10 +1,14 @@
 import datetime
 import text
-import kb, files, re, asyncio, config, db, time
+import kb
+import files
+import re
+import asyncio
 from aiogram.types import Message, CallbackQuery
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 import sheduled_message
-
+from contextvars import ContextVar
+from aiogram import Bot
 tasks = []
 def greeting():
     current_time = datetime.datetime.now()
@@ -67,8 +71,16 @@ def validate_phone_number(phone_number):
     else:
         return False
 
-async def create_fire_messages_scheduler(msg: Message):
-    scheduler = AsyncIOScheduler(timezone="Europe/Moscow")
-    scheduler.add_job(sheduled_message.send_first_fire_message, trigger='date', run_date=datetime.datetime.now() + datetime.timedelta(seconds=10), kwargs={"msg": msg})
-    scheduler.start()
-    return scheduler
+async def remove_messages_from_redis(msg: Message, apscheduler: AsyncIOScheduler):
+    if apscheduler.get_job(str(msg.from_user.id) + '1'):
+        apscheduler.remove_job(str(msg.from_user.id) + '1')
+    if apscheduler.get_job(str(msg.from_user.id) + '2'):
+        apscheduler.remove_job(str(msg.from_user.id) + '2')
+    if apscheduler.get_job(str(msg.from_user.id) + '3'):
+        apscheduler.remove_job(str(msg.from_user.id) + '3')
+    if apscheduler.get_job(str(msg.from_user.id) + '4'):
+        apscheduler.remove_job(str(msg.from_user.id) + '4')
+    if apscheduler.get_job(str(msg.from_user.id) + '5'):
+        apscheduler.remove_job(str(msg.from_user.id) + '5')
+    if apscheduler.get_job(str(msg.from_user.id) + '6'):
+        apscheduler.remove_job(str(msg.from_user.id) + '6')

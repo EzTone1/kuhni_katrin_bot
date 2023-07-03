@@ -1,4 +1,7 @@
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup, KeyboardButton, ReplyKeyboardMarkup, ReplyKeyboardRemove
+from aiogram.utils.keyboard import ReplyKeyboardBuilder
+
+import text
 
 classic_style = "📎 Классика"
 hitech_style = "📎 Хай-тек"
@@ -74,12 +77,12 @@ type_of_tabletop_keyboard = ReplyKeyboardMarkup(
 )
 
 first_city = "📍 Армавир"
-second_city = "📍 Краснодар"
-third_city = "📍 Кропоткин"
-forth_city = "📍 Черкесск"
-fivth_city = "📍 Ставрополь"
-sixth_city = "📍 Курганинск"
-seventh_city = "📍 Невинномысск"
+second_city = "📍 Ставрополь"
+third_city = "📍 Черкесск"
+forth_city = "📍 Невинномысск"
+fivth_city = "📍 Майкоп"
+sixth_city = "📍 Кропоткин"
+seventh_city = "📍 Другое"
 city_kitchen = [
     [KeyboardButton(text=first_city),
     KeyboardButton(text=second_city)],
@@ -107,5 +110,20 @@ tg_channel_button = [
 ]
 tg_channel_keyboard = InlineKeyboardMarkup(inline_keyboard=tg_channel_button)
 
+firing_reply = ReplyKeyboardBuilder()
+firing_reply.button(text=text.firing_button_phone)
+firing_reply.button(text=text.firing_button_whatsapp)
+firing_reply.adjust(2)
 
+
+firing2_reply = ReplyKeyboardBuilder()
+firing2_reply.button(text=text.firing_button_on_phone)
+firing2_reply.button(text=text.firing_button_on_whatsapp)
+firing2_reply.adjust(2)
+
+
+firing3_reply = ReplyKeyboardBuilder()
+firing3_reply.button(text=text.firing_button_meeting)
+firing3_reply.button(text=text.firing_button_consult)
+firing3_reply.adjust(2)
 
