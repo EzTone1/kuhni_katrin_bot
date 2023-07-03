@@ -3,7 +3,6 @@ import asyncio
 import logging
 
 async def main():
-
     await config.bot.delete_webhook(drop_pending_updates=True)
     await config.dp.start_polling(config.bot, allowed_updates=config.dp.resolve_used_update_types())
 

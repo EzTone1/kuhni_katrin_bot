@@ -17,7 +17,8 @@ style_of_kitchen = [
 style_of_kitchen_keyboard = ReplyKeyboardMarkup(
     keyboard=style_of_kitchen,
     resize_keyboard=True,
-    input_field_placeholder="Выберите подходящий стиль, или напишите его сюда"
+    input_field_placeholder="Выберите подходящий стиль, или напишите его сюда",
+    one_time_keyboard=True
 )
 
 
@@ -37,7 +38,8 @@ length_of_kitchen = [
 ]
 length_of_kitchen_keyboard = ReplyKeyboardMarkup(
     keyboard=length_of_kitchen, resize_keyboard=True,
-    input_field_placeholder="Выберите длину Вашей кухни или напишите сюда"
+    input_field_placeholder="Выберите длину Вашей кухни или напишите сюда",
+    one_time_keyboard=True
 )
 
 
@@ -54,7 +56,8 @@ form_of_kitchen = [
 form_of_kitchen_keyboard = ReplyKeyboardMarkup(
     keyboard=form_of_kitchen,
     resize_keyboard=True,
-    input_field_placeholder="Выберите форму из списка"
+    input_field_placeholder="Выберите форму из списка",
+    one_time_keyboard=True
 )
 
 plastic_tabletop = "🟠 Пластиковая"
@@ -66,7 +69,8 @@ type_of_tabletop = [
 type_of_tabletop_keyboard = ReplyKeyboardMarkup(
     keyboard=type_of_tabletop,
     resize_keyboard=True,
-    input_field_placeholder="Выберите столешницу из списка"
+    input_field_placeholder="Выберите столешницу из списка",
+    one_time_keyboard=True
 )
 
 first_city = "📍 Армавир"
@@ -88,7 +92,8 @@ city_kitchen = [
 city_kitchen_keyboard = ReplyKeyboardMarkup(
     keyboard=city_kitchen,
     resize_keyboard=True,
-    input_field_placeholder="Выберите, из какого Вы города"
+    input_field_placeholder="Выберите, из какого Вы города",
+    one_time_keyboard=True
 )
 
 phone_key = [KeyboardButton(text="Отправить номер телефона", request_contact=True)]
