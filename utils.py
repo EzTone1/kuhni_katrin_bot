@@ -33,6 +33,10 @@ def text_of_message(text_of_message):
             return text.scandinavian_kitchen
         case kb.neoclassic_style:
             return text.neoclassic_kitchen
+        case kb.rock_tabletop:
+            return text.rock_tabletop
+        case kb.plastic_tabletop:
+            return text.plastic_tabletop
         case _:
             return text.other_kichen.format(user_style=text_of_message)
 

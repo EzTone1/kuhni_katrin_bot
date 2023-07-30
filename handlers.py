@@ -135,6 +135,10 @@ async def number_of_phone_text(msg: Message, state: FSMContext, apscheduler: Asy
         await asyncio.sleep(5)
         await msg.answer(allow_sending_without_reply=True, text=text.thanksgiving_kitchen, parse_mode="Markdown",
                          reply_markup=kb.tg_channel_keyboard)
+        await msg.answer(allow_sending_without_reply=True, text=text.thanksgiving_kitchen_2, parse_mode="Markdown",
+                         reply_markup=kb.tg_channel_inline_kb)
+        await msg.answer_photo(allow_sending_without_reply=True, parse_mode="Markdown", photo=files.thanksgiving)
+
         await config.bot.send_message(config.group_id, text=text.finish_kitchen_in_group.format(**answers_of_client), parse_mode="Markdown")
         await state.clear()
     elif utils.validate_phone_number(msg.text):
@@ -154,8 +158,12 @@ async def number_of_phone_text(msg: Message, state: FSMContext, apscheduler: Asy
                          reply_markup=kb.delete_keyboard, parse_mode="Markdown")
         await msg.answer(text.saving_kitchen, parse_mode="Markdown")
         await asyncio.sleep(5)
-        await msg.answer(allow_sending_without_reply=True, text=text.thanksgiving_kitchen, parse_mode="Markdown",
-                         reply_markup=kb.tg_channel_keyboard)
+        await msg.answer(allow_sending_without_reply=True,
+                               text=text.thanksgiving_kitchen, parse_mode="Markdown",
+                               reply_markup=kb.tg_channel_keyboard)
+        await msg.answer(allow_sending_without_reply=True, text=text.thanksgiving_kitchen_2, parse_mode="Markdown",
+                         reply_markup=kb.tg_channel_inline_kb)
+        await msg.answer_photo(allow_sending_without_reply=True, parse_mode="Markdown", photo=files.thanksgiving)
         await config.bot.send_message(config.group_id, text=text.finish_kitchen_in_group.format(**answers_of_client), parse_mode="Markdown")
         await state.clear()
 

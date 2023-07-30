@@ -1,5 +1,6 @@
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup, KeyboardButton, ReplyKeyboardMarkup, ReplyKeyboardRemove
 from aiogram.utils.keyboard import ReplyKeyboardBuilder
+from aiogram.types.web_app_info import WebAppInfo
 
 import text
 
@@ -105,10 +106,21 @@ phone_keyboard = ReplyKeyboardMarkup(keyboard=[phone_key],
                                      input_field_placeholder="Введите номер телефона или нажмите кнопку")
 
 delete_keyboard = ReplyKeyboardRemove()
-tg_channel_button = [
-    [InlineKeyboardButton(text="Перейти в телеграмканал 'Кухни Катрин'", url="https://t.me/kuhni_katrin")],
+#tg_channel_button = [
+#    [InlineKeyboardButton(text="Перейти в телеграмканал 'Кухни Катрин'", url="https://t.me/kuhni_katrin")],
+#]
+tg_channel_1 = "3D-проект"
+tg_channel_button =[
+    [KeyboardButton(text=tg_channel_1, web_app=WebAppInfo(url='https://thankskuhni.tilda.ws/'))],
 ]
-tg_channel_keyboard = InlineKeyboardMarkup(inline_keyboard=tg_channel_button)
+tg_channel_keyboard = ReplyKeyboardMarkup(keyboard=tg_channel_button,
+                                          resize_keyboard=True,
+                                          input_field_placeholder="Выберите вариант ниже")
+tg_channel_2 = "На канал"
+tg_channel_inline_button = [
+    [InlineKeyboardButton(text=tg_channel_2, url="https://t.me/kuhni_katrin")],
+]
+tg_channel_inline_kb = InlineKeyboardMarkup(inline_keyboard = tg_channel_inline_button)
 
 firing_reply = ReplyKeyboardBuilder()
 firing_reply.button(text=text.firing_button_phone)
